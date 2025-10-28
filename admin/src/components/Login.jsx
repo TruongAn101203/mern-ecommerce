@@ -23,7 +23,7 @@ const Login = ({setToken}) => {
     console.log("🟢 Login API response:", response); 
 
     if (response.success) {
-      setLocalStorage('token', response.token);
+      localStorage.setItem('token', response.token); 
       setToken(response.token);
       toast.success('Login successful!');
       navigate('/list');
