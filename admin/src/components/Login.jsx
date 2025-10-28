@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
-import { setLocalStorage } from '../utils/storage';
 
 const Login = ({setToken}) => {
 
