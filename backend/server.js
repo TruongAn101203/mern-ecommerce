@@ -19,7 +19,6 @@ connectCloudinary()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// ⚙️ Cấu hình CORS Tối ưu (CHỈ DUY NHẤT KHỐI NÀY)
 const allowedOrigins = [
   'https://mern-ecommerce-frontend-eight-bay.vercel.app',
   'https://mern-ecommerce-admin-amber.vercel.app',
@@ -42,7 +41,7 @@ app.use(cors({
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'token'],
-  optionsSuccessStatus: 204 // FIX: Trả về 204 cho yêu cầu OPTIONS (Preflight) để tránh lỗi Redirect
+  optionsSuccessStatus: 204 
 }));
 
 // Serve static files
@@ -60,10 +59,6 @@ app.get('/', (req, res) => {
   res.status(200).send('API is running...')
 })
 
-// ✅ Export cho Vercel đọc app Express
-export default app;
+app.listen(port, () => console.log(`✅ Server running on port ${port}`))
 
-// ✅ Chỉ chạy listen khi ở local
-if (!process.env.VERCEL) {
-  app.listen(port, () => console.log(`✅ Server running on port ${port}`))
-}
+export default app;
