@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// ✨ THÊM useNavigate
-import { login } from '../utils/api'; 
+import { login } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
+import { setLocalStorage } from '../utils/storage';
 
 const Login = ({setToken}) => {
 
@@ -11,42 +11,33 @@ const Login = ({setToken}) => {
     const [password, setPassword] = useState('');
     // ✨ KHỞI TẠO useNavigate
     const navigate = useNavigate();
-    
+ 
     const onSubmitHandler = async (e) => {
-      try {
-        e.preventDefault();
-        
-        if (!email || !password) {
-            toast.error("Please enter both email and password.");
-            return;
-        }
+  e.preventDefault();
+  try {
+    if (!email || !password) {
+      toast.error("Please enter both email and password.");
+      return;
+    }
 
-        const response = await login(email, password);
-        
-        if (response.success) {
-          // 1. Cập nhật localStorage
-          localStorage.setItem('token', response.token); 
-          
-          // 2. Cập nhật State trong App.jsx
-          setToken(response.token); 
-          
-          toast.success('Login successful!');
-          
-          // ✨ FIX CUỐI CÙNG: Chuyển hướng MƯỢT MÀ bằng React Router
-          navigate('/list'); 
-          
-          return; // Kết thúc hàm
+    const response = await login(email, password);
+    console.log("🟢 Login API response:", response); 
 
-        } else {
-          toast.error(response.message || 'Invalid credentials');
-          return; // Kết thúc hàm
-        }
-      } catch (error) {
-        console.error('Login error:', error);
-        toast.error(error?.message || 'Login failed. Please try again.');
-        return; // Kết thúc hàm
-      }
-    };
+    if (response.success) {
+      setLocalStorage('token', response.token);
+      setToken(response.token);
+      toast.success('Login successful!');
+      navigate('/list');
+    } else {
+      toast.error(response.message || 'Invalid credentials');
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    toast.error(error?.message || 'Login failed. Please try again.');
+  }
+};
+
 
 
     return (

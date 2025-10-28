@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getLocalStorage } from './storage';
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL || 'https://mern-ecommerce-backend-smoky.vercel.app',
@@ -12,7 +13,7 @@ const API = axios.create({
 // Add a request interceptor
 API.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getLocalStorage('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
