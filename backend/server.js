@@ -21,11 +21,11 @@ app.use(express.urlencoded({ extended: true }))
 
 // ⚙️ Cấu hình CORS Tối ưu (CHỈ DUY NHẤT KHỐI NÀY)
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:5174',
   'https://mern-ecommerce-frontend-eight-bay.vercel.app',
-  'https://mern-ecommerce-admin-amber.vercel.app', // Frontend Admin Domain
+  'https://mern-ecommerce-admin-amber.vercel.app',
   'http://localhost:3000',
+  'http://localhost:5174',
+  'http://localhost:5173',
   'http://127.0.0.1:5174',
   'http://127.0.0.1:5173'
 ];
@@ -60,5 +60,10 @@ app.get('/', (req, res) => {
   res.status(200).send('API is running...')
 })
 
-app.listen(port, () => console.log(`✅ Server running on port ${port}`))
+// ✅ Export cho Vercel đọc app Express
+export default app;
 
+// ✅ Chỉ chạy listen khi ở local
+if (!process.env.VERCEL) {
+  app.listen(port, () => console.log(`✅ Server running on port ${port}`))
+}

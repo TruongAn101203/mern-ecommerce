@@ -233,25 +233,20 @@ const Orders = () => {
                         <div key={index} className="flex items-center space-x-4 py-2 border-b">
                           <div className="w-20 h-20 flex-shrink-0">
                             <img
-                                src={
-                                  productImages[item.productId]?.[0]
-                                    ? productImages[item.productId][0].startsWith("http")
-                                      ? productImages[item.productId][0]
-                                      : `${backendUrl}/${productImages[item.productId][0]}`
-                                    : item.product?.image?.[0]
-                                      ? item.product.image[0].startsWith("http")
-                                        ? item.product.image[0]
-                                        : `${backendUrl}/${item.product.image[0]}`
-                                      : assets.logo
-                                }
-                                alt={item.product?.name || 'Product'}
-                                className="w-20 h-20 object-cover rounded"
-                                onError={(e) => {
-                                  e.target.onerror = null;
-                                  e.target.src = assets.logo;
-                                }}
-                              />
-
+                              src={
+                                productImages[item.productId]?.[0]
+                                  ? `${backendUrl}/${productImages[item.productId][0]}`
+                                  : item.product?.image?.[0]
+                                    ? `${backendUrl}/${item.product.image[0]}`
+                                    : assets.logo
+                              }
+                              alt={item.product?.name || 'Product'}
+                              className="w-20 h-20 object-cover rounded"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = assets.logo;
+                              }}
+                            />
                           </div>
                           <div className="flex-1">
                             <h4 className="font-medium">{item.name || 'Unknown Product'}</h4>
