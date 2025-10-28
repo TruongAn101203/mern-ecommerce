@@ -85,7 +85,7 @@ const Add = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-
+      console.log('🟣 Token from localStorage:', token);
       const response = await axios.post(
         `${backendUrl}/api/product/add`,
         productData,

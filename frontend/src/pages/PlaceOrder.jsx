@@ -261,7 +261,7 @@ const PlaceOrder = () => {
                     </label>
                     <p className='text-xs text-gray-500 mt-1'>Pay when you receive the goods</p>
                   </div>
-                  <img src={assets.cod_icon} alt='COD' className='h-8 ml-2' />
+                  
                 </div>
 
                 <div className='flex items-center p-3 border rounded-md hover:bg-gray-50'>
